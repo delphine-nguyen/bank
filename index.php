@@ -21,28 +21,19 @@
     </header>
 
     <main>
-        <form action="./dbh.inc.php" method="post">
-            <label for="name">Name</label>
-            <input type="text">
+        <form action="./formHandler.inc.php" method="post">
+            <label for="lastname">Lastname</label>
+            <input type="text" name="lastname" value="Dupont">
 
             <label for="firstname">Firstname</label>
-            <input type="text" name="firstname">
+            <input type="text" name="firstname" value="Jean">
 
             <label for="birthday">Birthday</label>
             <input type="date" name="birthday">
 
-            <label for="balance">Balance</label>
-            <input type="number" name="balance">
-
             <label for="email">Email</label>
-            <input type="mail" name="email">
+            <input type="mail" name="email" value="dupont.jean@gmail.com">
 
-            <label for="type">Type of account</label>
-            <select name="type">
-                <option value="compteCourant">Compte courant</option>
-                <option value="livretA">Livret A</option>
-                <option value="epl">EPL</option>
-            </select>
 
             <button type="submit">Submit</button>
         </form>
