@@ -21,7 +21,8 @@
     </header>
 
     <main>
-        <form action="./formHandler.inc.php" method="post">
+        <h2>I'm a new client</h2>
+        <form action="./insert.inc.php" method="post">
             <label for="lastname">Lastname</label>
             <input type="text" name="lastname" value="Dupont">
 
@@ -35,8 +36,29 @@
             <input type="mail" name="email" value="dupont.jean@gmail.com">
 
 
-            <button type="submit">Submit</button>
+            <button type="submit">Sign up</button>
         </form>
+
+        <h2>Search client</h2>
+
+        <form action="./search.php" class="searchForm" method="post">
+            <label for="id">ID</label>
+            <input type="text" name="id">
+
+            <button type="submit">Search</button>
+        </form>
+        <section id="resultSearch">
+            <?php
+            session_start();
+            if (isset($_SESSION["resultSearch"]) && !empty($_SESSION["resultSearch"])) :
+                foreach ($_SESSION["resultSearch"] as $key => $value) : ?>
+                    <p><?php echo $key . " : " . $value ?></p>
+            <?php
+                endforeach;
+            endif; ?>
+
+
+        </section>
     </main>
 </body>
 
