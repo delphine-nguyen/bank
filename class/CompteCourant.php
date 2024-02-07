@@ -48,4 +48,10 @@ class CompteCourant extends BankAccount
         $this->overDraftAllowed = $overDraftAllowed;
         return $this;
     }
+
+    public function billAccount(): void
+    {
+        $bill = $this->computeBill();
+        $this->withdraw($bill);
+    }
 }

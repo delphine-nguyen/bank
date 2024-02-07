@@ -132,7 +132,7 @@ abstract class BankAccount
     {
         $this->interestRate = $interestRate;
         return $this;
-    }  // TODO : function never used
+    }
 
     private function checkOverDraft(float $amount)
     {

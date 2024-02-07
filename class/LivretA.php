@@ -28,7 +28,7 @@ class LivretA extends BankAccount implements IEpargne
 
     public function computeBill(): float
     {
-        return self::$basePrice + $this->computeInterest() * 0.10;
+        return BankAccount::$basePrice + $this->getBalance() * 0.10;
     }
 
     public function computeInterest(): float

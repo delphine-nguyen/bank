@@ -27,7 +27,7 @@ class PlanEpargneLogement extends BankAccount implements IEpargne
 
     public function computeBill(): float
     {
-        return self::$basePrice + $this->computeInterest() * 0.025;
+        return BankAccount::$basePrice + $this->getBalance() * 0.025;
     }
 
     public function computeInterest(): float
