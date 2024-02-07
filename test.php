@@ -138,3 +138,13 @@ foreach ($transactions as $transaction) {
 
 echo "<hr>";
 echo $currentClient;
+
+// ==============================================================
+
+echo "<h2>Interest</h2>";
+
+echo "<hr>";
+echo $account3->addInterest();
+echo "<hr>";
+
+echo $francois;
