@@ -1,5 +1,7 @@
 <?php
 
+require_once("./class/Client.php");
+
 class Transaction
 {
     private int $id;
@@ -31,6 +33,8 @@ class Transaction
         $this->account = $account;
         $this->type = $type;
         $this->id = self::$counter++;
+
+        $client->addTransaction($this);
     }
 
     /**

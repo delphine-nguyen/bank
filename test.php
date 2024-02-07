@@ -148,3 +148,15 @@ echo $account3->addInterest();
 echo "<hr>";
 
 echo $francois;
+
+
+// ==============================================================
+
+echo "<h2>Show all transactions of an account</h2>";
+
+echo $francois;
+
+foreach ($francois->getTransactions() as $transaction) {
+    echo $transaction;
+    echo "<hr>";
+}

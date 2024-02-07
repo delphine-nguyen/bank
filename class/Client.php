@@ -12,6 +12,7 @@ class Client
     private DateTime $birthday;
     private array $accounts = [];
     private static int $counter = 0;
+    private array $transactions = [];
 
     public function __construct(
         string $name,
@@ -179,5 +180,15 @@ class Client
         }
 
         return $display;
+    }
+
+    public function addTransaction(Transaction $transaction): void
+    {
+        $this->transactions[] = $transaction;
+    }
+
+    public function getTransactions(): array
+    {
+        return $this->transactions;
     }
 }
