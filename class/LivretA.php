@@ -3,6 +3,7 @@
 require_once("./class/BankAccount.php");
 require_once("./class/Client.php");
 require_once("./interface/IEpargne.php");
+require_once("./class/Transaction.php");
 
 class LivretA extends BankAccount implements IEpargne
 {
@@ -36,5 +37,11 @@ class LivretA extends BankAccount implements IEpargne
         $interest = $this->getBalance() * $this->getInterestRate();
 
         return $interest > 0 ? $interest : 0;
+    }
+
+    public function addInterest(): Transaction
+    {
+        $interest = $this->computeInterest();
+        return $this->supply($interest);
     }
 }
