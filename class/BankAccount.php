@@ -7,7 +7,6 @@ abstract class BankAccount
     private string $accountNumber;
     private Client $client;
     private float $balance;
-    private int $overDraftAllowed;
     private static int $counter = 1;
     private float $interestRate;
 
@@ -15,18 +14,19 @@ abstract class BankAccount
 
     public function __construct(
         Client $client,
-        int $overDraftAllowed,
         int $balance,
         float $interestRate
     ) {
         $this->accountNumber = str_pad(self::$counter++, 12 - strlen(self::$counter), '0', STR_PAD_LEFT);
         $this->client = $client;
-        $this->overDraftAllowed = $overDraftAllowed;
         $this->balance = $balance;
         $this->interestRate = $interestRate;
 
         $client->addAccount($this);
     }
+
+
+    abstract public function getOverDraftAllowed(): float;
 
     /**
      * Get the value of accountNumber
@@ -97,29 +97,6 @@ abstract class BankAccount
         return $this;
     }
 
-    /**
-     * Get the value of overDraftAllowed
-     *
-     * @return int
-     */
-    public function getOverDraftAllowed(): int
-    {
-        return $this->overDraftAllowed;
-    }
-
-    /**
-     * Set the value of overDraftAllowed
-     *
-     * @param int $overDraftAllowed
-     *
-     * @return self
-     */
-    public function setOverDraftAllowed(int $overDraftAllowed): self
-    {
-        $this->overDraftAllowed = $overDraftAllowed;
-        return $this;
-    }
-
     abstract public function computeBill(): float;
 
     public function __toString(): string
@@ -128,7 +105,7 @@ abstract class BankAccount
         $display = $this->getAccountNumber() . " " .
             $this->getBalance() . " euros ";
         $display .= $this->getBalance() > 0 ? ":-) " : ":-( ";
-        $display .= "(Overdraft allowed: " . $this->getOverDraftAllowed() . ")";
+        $display .= "(Overdraft allowed: " . $this->getOverDraftAllowed() . "€)";
         return $display;
     }
 

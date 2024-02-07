@@ -6,18 +6,23 @@ require_once("./interface/IEpargne.php");
 
 class PlanEpargneLogement extends BankAccount implements IEpargne
 {
+    private static $overDraftAllowed = 0;
+
     public function __construct(
         Client $client,
-        int $overDraftAllowed,
         int $balance,
         float $interestRate
     ) {
         parent::__construct(
             client: $client,
-            overDraftAllowed: $overDraftAllowed,
             balance: $balance,
             interestRate: $interestRate
         );
+    }
+
+    public function getOverDraftAllowed(): float
+    {
+        return self::$overDraftAllowed;
     }
 
     public function computeBill(): float

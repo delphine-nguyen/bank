@@ -37,21 +37,18 @@ $account1 = new CompteCourant(
 
 $account2 = new LivretA(
     client: $jean,
-    overDraftAllowed: 100,
     balance: -100,
     interestRate: 0.05
 );
 
 $account3 = new PlanEpargneLogement(
     client: $francois,
-    overDraftAllowed: 50,
     balance: 725,
     interestRate: 0.05
 );
 
 $account4 = new PlanEpargneLogement(
     client: $francois,
-    overDraftAllowed: 0,
     balance: 830,
     interestRate: 0.05
 );
