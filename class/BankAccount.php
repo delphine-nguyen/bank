@@ -1,6 +1,8 @@
 <?php
 
 require_once("./class/Client.php");
+require_once("./class/Transaction.php");
+
 
 abstract class BankAccount
 {
@@ -130,5 +132,82 @@ abstract class BankAccount
     {
         $this->interestRate = $interestRate;
         return $this;
+    }  // TODO : function never used
+
+    private function checkOverDraft(float $amount)
+    {
+        # Check that withdrawal is allowed
+        $overDraft = $this->getBalance() - $amount;
+        if ($overDraft < 0) {
+            if ($this->getOverDraftAllowed() <= -$overDraft) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function withdraw(
+        float $amount
+    ): Transaction {
+
+        $accountNumber = $this->getAccountNumber();
+
+        # Check that withdrawal is allowed
+        if ($this->checkOverDraft(amount: $amount)) {
+            $this->setBalance($this->getBalance() - $amount);
+            $success = true;
+            $msg = "- $amount euros on $accountNumber";
+        } else {
+            $success = false;
+            $msg = "Withdrawal unauthorized: maximum overdraft reached on $accountNumber";
+        }
+
+        return new Transaction(
+            client: $this->client,
+            date: new DateTime(),
+            success: $success,
+            amount: -$amount,
+            account: $this,
+            type: "withdraw",
+            msg: $msg
+        );
+    }
+
+    public function supply(
+        float $amount
+    ): Transaction {
+
+        $accountNumber = $this->getAccountNumber();
+
+        $this->setBalance($this->getBalance() + $amount);
+        $success = true;
+        $msg = "+ $amount euros on $accountNumber";
+
+        return new Transaction(
+            client: $this->client,
+            date: new DateTime(),
+            success: $success,
+            amount: $amount,
+            account: $this,
+            msg: $msg,
+            type: "supply"
+        );
+    }
+
+    public function transfer(
+        BankAccount $recipient,
+        float $amount
+    ) {
+
+        $transactions = [];
+
+        $withdrawal = $this->withdraw($amount);
+        array_push($transactions, $withdrawal);
+        if ($withdrawal->getSuccess()) {
+            $supply = $recipient->supply($amount);
+            array_push($transactions, $supply);
+        }
+
+        return $transactions;
     }
 }

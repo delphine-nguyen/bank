@@ -6,9 +6,6 @@ require_once("./class/Client.php");
 require_once("./class/LivretA.php");
 require_once("./class/PlanEpargneLogement.php");
 require_once("./class/Transaction.php");
-require_once("./class/Withdrawal.php");
-require_once("./class/Transfer.php");
-require_once("./class/Supply.php");
 
 $bank = new Bank();
 
@@ -68,9 +65,7 @@ echo $currentClient;
 echo "<h3>No overdraft</h3>";
 
 echo "<hr>";
-echo $bank->withdraw(
-    client: $currentClient,
-    currentAccount: $account3,
+echo $account3->withdraw(
     amount: 10
 );
 echo "<hr>";
@@ -81,9 +76,7 @@ echo $currentClient;
 echo "<h3>Limit Overdraft reached</h3>";
 
 echo "<hr>";
-echo $bank->withdraw(
-    client: $currentClient,
-    currentAccount: $account3,
+echo $account3->withdraw(
     amount: 1000
 );
 echo "<hr>";
@@ -98,9 +91,7 @@ $currentClient = $francois;
 echo $currentClient;
 
 echo "<hr>";
-echo $bank->supply(
-    client: $currentClient,
-    currentAccount: $account3,
+echo $account3->supply(
     amount: 100
 );
 echo "<hr>";
@@ -117,13 +108,17 @@ echo $currentClient;
 
 echo "<h3>No overdraft</h3>";
 
-echo "<hr>";
-echo $bank->transfer(
-    client: $currentClient,
-    from: $account3,
-    to: $account4,
+
+$transactions =  $account3->transfer(
+    recipient: $account4,
     amount: 100,
 );
+
+foreach ($transactions as $transaction) {
+    echo "<hr>";
+    echo $transaction;
+}
+
 echo "<hr>";
 echo $currentClient;
 
@@ -131,51 +126,15 @@ echo $currentClient;
 
 echo "<h3>Limit Overdraft reached</h3>";
 
-echo "<hr>";
-echo $bank->transfer(
-    client: $currentClient,
-    from: $account3,
-    to: $account4,
-    amount: 1000,
-);
-echo "<hr>";
-
-// ==============================================================
-
-echo "<h2>Only owners can interact with their account</h2>";
-
-echo "<hr>";
-echo $bank->transfer(
-    client: $jean,
-    from: $account3,
-    to: $account4,
-    amount: 1000,
+$transactions =  $account3->transfer(
+    recipient: $account4,
+    amount: 3000,
 );
 
-echo "<hr>";
-echo $bank->supply(
-    client: $jean,
-    currentAccount: $account3,
-    amount: 100
-);
-
-echo "<hr>";
-echo $bank->withdraw(
-    client: $jean,
-    currentAccount: $account3,
-    amount: 10
-);
-
-
-$servername = "localhost";
-$username = "username";
-$password = "password";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+foreach ($transactions as $transaction) {
+    echo "<hr>";
+    echo $transaction;
 }
-echo "Connected successfully";
+
+echo "<hr>";
+echo $currentClient;

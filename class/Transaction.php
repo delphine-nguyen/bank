@@ -1,6 +1,6 @@
 <?php
 
-abstract class Transaction
+class Transaction
 {
     private int $id;
     private Client $client;
@@ -8,6 +8,9 @@ abstract class Transaction
     private bool $success;
     private float $amount;
     private string $msg;
+    private string $type;
+
+    private BankAccount $account;
 
     private static int $counter = 0;
 
@@ -16,13 +19,17 @@ abstract class Transaction
         DateTime $date,
         bool $success,
         float $amount,
-        string $msg
+        string $msg,
+        string $type,
+        BankAccount $account
     ) {
         $this->client = $client;
         $this->date = $date;
         $this->success = $success;
         $this->amount = $amount;
         $this->msg = $msg;
+        $this->account = $account;
+        $this->type = $type;
         $this->id = self::$counter++;
     }
 
@@ -95,17 +102,6 @@ abstract class Transaction
         return $this;
     }
 
-    public function __toString(): string
-    {
-
-        $date = $this->date->format("d/m/Y");
-        return  "TRANSACTION n° $this->id <br>" .
-            "Type: " . get_class($this) . "<br>" .
-            "Date: $date <br>" .
-            "Success: $this->success <br>" .
-            "Message: $this->msg <br>";
-    }
-
     /**
      * Get the value of client
      *
@@ -126,6 +122,41 @@ abstract class Transaction
     public function setClient(Client $client): self
     {
         $this->client = $client;
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+
+        $date = $this->date->format("d/m/Y");
+        return  "TRANSACTION n° $this->id <br>" .
+            "Type: $this->type<br>" .
+            "Date: $date <br>" .
+            "Success: $this->success <br>" .
+            "Amount: $this->amount <br>" .
+            "Message: $this->msg <br>";
+    }
+
+    /**
+     * Get the value of type
+     *
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @param string $type
+     *
+     * @return self
+     */
+    public function setType(string $type): self
+    {
+        $this->type = $type;
         return $this;
     }
 }
