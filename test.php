@@ -160,3 +160,15 @@ foreach ($francois->getTransactions() as $transaction) {
     echo $transaction;
     echo "<hr>";
 }
+
+// ==============================================================
+
+echo "<h2>Remove account</h2>";
+
+echo $francois;
+
+echo "<hr>";
+echo $francois->removeAccount($account4);
+echo "<hr>";
+
+echo $francois;

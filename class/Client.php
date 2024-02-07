@@ -163,6 +163,17 @@ class Client
         return "Account successfully added";
     }
 
+    public function removeAccount(BankAccount $accountToDelete): string
+    {
+        foreach ($this->accounts as $key => $account) {
+            if ($accountToDelete->getAccountNumber() == $account->getAccountNumber()) {
+                unset($this->accounts[$key]);
+                return "Account successfully removed from list of accounts";
+            }
+        }
+        return "Can't find account in list of accounts";
+    }
+
     public function __toString(): string
     {
         $display =
