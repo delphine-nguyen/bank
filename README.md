@@ -36,17 +36,17 @@ réserve des fonds disponibles sur le compte source et du respect du découvert 
 échéant).
 - Méthode d'affichage d'une fiche client tel que :
 
-```
-Fiche client
-Numéro client : AF657545
-Nom : Nom_du_client
-Prénom : Prénom_du_client
-Date de naissance : Date de naissance du client
-Liste de compte
-Numéro de compte | Solde
-01345267891 1500 euros :-)
------------------------------
-23445566778 6733 euros :-)
------------------------------
-23445966211 - 45 euros :-(
-```
+    ```
+    Fiche client
+    Numéro client : AF657545
+    Nom : Nom_du_client
+    Prénom : Prénom_du_client
+    Date de naissance : Date de naissance du client
+    Liste de compte
+    Numéro de compte | Solde
+    01345267891 1500 euros :-)
+    -----------------------------
+    23445566778 6733 euros :-)
+    -----------------------------
+    23445966211 - 45 euros :-(
+    ```
